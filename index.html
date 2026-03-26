@@ -354,14 +354,6 @@
         <div class="stat-number" id="stat-total">--</div>
         <div class="stat-label">Utilities tracked</div>
     </div>
-    <div class="stat">
-        <div class="stat-number" id="stat-rss">--</div>
-        <div class="stat-label">RSS feeds</div>
-    </div>
-    <div class="stat">
-        <div class="stat-number" id="stat-html">--</div>
-        <div class="stat-label">Newsrooms scraped</div>
-    </div>
 </div>
 
 <!-- Utility list -->
@@ -376,11 +368,6 @@
         <input type="text" id="search-input" placeholder="Search utilities...">
     </div>
 
-    <div class="filter-pills">
-        <button class="filter-pill active" data-filter="all">All</button>
-        <button class="filter-pill" data-filter="rss">RSS</button>
-        <button class="filter-pill" data-filter="html">HTML</button>
-    </div>
 
     <div class="utility-grid" id="utility-grid"></div>
     <div class="no-results" id="no-results">No utilities match your search.</div>
@@ -410,8 +397,6 @@
             // Stats
             const active = allUtilities.filter(u => u.status === 'active');
             document.getElementById('stat-total').textContent = active.length;
-            document.getElementById('stat-rss').textContent = active.filter(u => u.type === 'rss').length;
-            document.getElementById('stat-html').textContent = active.filter(u => u.type === 'html').length;
 
             renderGrid(allUtilities);
         } catch (e) {
@@ -434,33 +419,14 @@
             <div class="utility-card">
                 <span class="utility-dot ${u.status}"></span>
                 <span class="utility-name" title="${u.name}">${u.name}</span>
-                <span class="utility-badge ${u.type}">${u.type}</span>
             </div>
         `).join('');
     }
 
     // Search
-    document.getElementById('search-input').addEventListener('input', filterUtilities);
-
-    // Filter pills
-    document.querySelectorAll('.filter-pill').forEach(pill => {
-        pill.addEventListener('click', () => {
-            document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-            pill.classList.add('active');
-            filterUtilities();
-        });
-    });
-
-    function filterUtilities() {
-        const query = document.getElementById('search-input').value.toLowerCase();
-        const activeFilter = document.querySelector('.filter-pill.active').dataset.filter;
-
-        const filtered = allUtilities.filter(u => {
-            const matchesSearch = u.name.toLowerCase().includes(query);
-            const matchesFilter = activeFilter === 'all' || u.type === activeFilter;
-            return matchesSearch && matchesFilter;
-        });
-
+    document.getElementById('search-input').addEventListener('input', function() {
+        const query = this.value.toLowerCase();
+        const filtered = allUtilities.filter(u => u.name.toLowerCase().includes(query));
         renderGrid(filtered);
     }
 
