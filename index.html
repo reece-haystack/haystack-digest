@@ -428,7 +428,7 @@
         const query = this.value.toLowerCase();
         const filtered = allUtilities.filter(u => u.name.toLowerCase().includes(query));
         renderGrid(filtered);
-    }
+    });
 
     // Subscribe form
     document.getElementById('subscribe-form').addEventListener('submit', async (e) => {
