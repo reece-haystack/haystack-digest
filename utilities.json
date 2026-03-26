@@ -1,0 +1,424 @@
+{
+  "utilities": [
+    {
+      "company": "DTE Energy",
+      "has_rss": false,
+      "url": "https://www.dteenergy.com/us/en/newsroom.html",
+      "notes": "UPDATED: Replaced Meltwater link with native DTE newsroom URL. Meltwater (skrift.meltwater.io) is a 3rd-party mirror that may lag behind."
+    },
+    {
+      "company": "PSEG",
+      "has_rss": false,
+      "url": "https://corporate.pseg.com/newsroom",
+      "notes": null
+    },
+    {
+      "company": "Xcel Energy",
+      "has_rss": false,
+      "url": "https://newsroom.xcelenergy.com/news",
+      "notes": null
+    },
+    {
+      "company": "Arizona Public Service (APS)",
+      "has_rss": false,
+      "url": "https://www.aps.com/en/About/Our-Company/Newsroom",
+      "notes": null
+    },
+    {
+      "company": "Baltimore Gas & Electric",
+      "has_rss": false,
+      "url": "https://www.bge.com/news/news-releases",
+      "notes": null
+    },
+    {
+      "company": "ComEd",
+      "has_rss": false,
+      "url": "https://www.comed.com/news/news-releases",
+      "notes": null
+    },
+    {
+      "company": "Eversource Conneticut",
+      "has_rss": false,
+      "url": "https://www.eversource.com/residential/about/our-company/news-room/connecticut-news",
+      "notes": null
+    },
+    {
+      "company": "Eversource Massachusetts",
+      "has_rss": false,
+      "url": "https://www.eversource.com/residential/about/our-company/news-room/massachusetts-news",
+      "notes": null
+    },
+    {
+      "company": "Eversource New Hampshire",
+      "has_rss": false,
+      "url": "https://www.eversource.com/residential/about/our-company/news-room/new-hampshire-news",
+      "notes": null
+    },
+    {
+      "company": "PSEG Long Island",
+      "has_rss": false,
+      "url": "https://www.psegliny.com/newsroom",
+      "notes": "UPDATED: Removed #press URL fragment \u2014 fragile for scraping. Base newsroom URL is sufficient."
+    },
+    {
+      "company": "TVA",
+      "has_rss": false,
+      "url": "",
+      "notes": "DISABLED: tva.com blocks all automated access (403 on every endpoint). Requires headless browser to scrape."
+    },
+    {
+      "company": "AES Indiana",
+      "has_rss": false,
+      "url": "https://www.aesindiana.com/news-releases",
+      "notes": null
+    },
+    {
+      "company": "AES Ohio",
+      "has_rss": false,
+      "url": "https://www.aes-ohio.com/press-releases",
+      "notes": null
+    },
+    {
+      "company": "Green Mountain Power",
+      "has_rss": false,
+      "url": "https://greenmountainpower.com/news/",
+      "notes": null
+    },
+    {
+      "company": "National Grid US",
+      "has_rss": false,
+      "url": "https://www.nationalgridus.com/news/",
+      "notes": null
+    },
+    {
+      "company": "Emera",
+      "has_rss": false,
+      "url": "https://investors.emera.com/news/default.aspx",
+      "notes": null
+    },
+    {
+      "company": "TECO",
+      "has_rss": false,
+      "url": "https://www.tampaelectric.com/mediacenter/",
+      "notes": null
+    },
+    {
+      "company": "Fortis",
+      "has_rss": false,
+      "url": "https://www.fortisinc.com/news/news-releases",
+      "notes": null
+    },
+    {
+      "company": "Hawaii Electric",
+      "has_rss": false,
+      "url": "https://www.hawaiianelectric.com/about-us/newsroom",
+      "notes": null
+    },
+    {
+      "company": "Nisource",
+      "has_rss": false,
+      "url": "",
+      "notes": "DISABLED: News content loaded via Angular.js AJAX — not in initial HTML response. Requires headless browser."
+    },
+    {
+      "company": "Avangrid",
+      "has_rss": false,
+      "url": "",
+      "notes": "DISABLED: avangrid.com times out on all automated requests. Requires headless browser to scrape."
+    },
+    {
+      "company": "BC Hydro",
+      "has_rss": false,
+      "url": "https://www.bchydro.com/news/press_centre/news_releases.html",
+      "notes": "UPDATED: Switched from /news.html (no dates displayed) to /news/press_centre/news_releases.html which shows dates in 'Mon DD, YYYY' format."
+    },
+    {
+      "company": "Berkshire Hathaway Energy",
+      "has_rss": false,
+      "url": "https://www.brkenergy.com/news",
+      "notes": null
+    },
+    {
+      "company": "Cleco",
+      "has_rss": false,
+      "url": "",
+      "notes": "DISABLED: cleco.com blocks all automated access (403 on every endpoint). Requires headless browser to scrape."
+    },
+    {
+      "company": "Hydro One",
+      "has_rss": false,
+      "url": "https://hydroone.mediaroom.com/",
+      "notes": null
+    },
+    {
+      "company": "Duke Energy",
+      "has_rss": true,
+      "url": "https://news.duke-energy.com/releases.xml",
+      "notes": null
+    },
+    {
+      "company": "Southern Company",
+      "has_rss": true,
+      "url": "https://southerncompany.mediaroom.com/index.php?s=34171&pagetemplate=rss",
+      "notes": null
+    },
+    {
+      "company": "Dominion",
+      "has_rss": true,
+      "url": "https://investors.dominionenergy.com/rss/pressrelease.aspx",
+      "notes": null
+    },
+    {
+      "company": "Entergy",
+      "has_rss": true,
+      "url": "https://www.entergy.com/feed/",
+      "notes": "UPDATED: Old entergynewsroom.com domain is dead (404). Moved to entergy.com WordPress RSS feed."
+    },
+    {
+      "company": "Consolidated Edison",
+      "has_rss": true,
+      "url": "https://conedison.gcs-web.com/rss/news-releases.xml",
+      "notes": null
+    },
+    {
+      "company": "Exelon",
+      "has_rss": true,
+      "url": "https://investors.exeloncorp.com/rss/news-releases.xml",
+      "notes": null
+    },
+    {
+      "company": "Pacific Gas & Electric",
+      "has_rss": true,
+      "url": "https://investor.pgecorp.com/rss/pressrelease.aspx",
+      "notes": null
+    },
+    {
+      "company": "Louisville Gas and Electric Company and Kentucky Utilities Company (LG&E and KU Energy)",
+      "has_rss": true,
+      "url": "https://news.pplweb.com/news-releases?pagetemplate=rss&category=772",
+      "notes": null
+    },
+    {
+      "company": "PPL Electric Utilities",
+      "has_rss": true,
+      "url": "https://news.pplweb.com/news-releases?pagetemplate=rss&category=773",
+      "notes": null
+    },
+    {
+      "company": "Rhode Island Energy",
+      "has_rss": true,
+      "url": "https://news.pplweb.com/news-releases?pagetemplate=rss&category=817",
+      "notes": null
+    },
+    {
+      "company": "Edison International",
+      "has_rss": true,
+      "url": "https://newsroom.edison.com/releases.xml",
+      "notes": null
+    },
+    {
+      "company": "Florida Power & Light Company",
+      "has_rss": true,
+      "url": "https://newsroom.fpl.com/news-release?pagetemplate=rss",
+      "notes": null
+    },
+    {
+      "company": "Sempra",
+      "has_rss": true,
+      "url": "https://sempra.mediaroom.com/feed?pagetemplate=rss&category=360",
+      "notes": null
+    },
+    {
+      "company": "San Diego Gas & Electric",
+      "has_rss": true,
+      "url": "https://sempra.mediaroom.com/feed?pagetemplate=rss&category=401",
+      "notes": null
+    },
+    {
+      "company": "Oncor Electric Delivery",
+      "has_rss": true,
+      "url": "https://sempra.mediaroom.com/feed?pagetemplate=rss&category=818",
+      "notes": null
+    },
+    {
+      "company": "SoCalGas",
+      "has_rss": true,
+      "url": "https://sempra.mediaroom.com/feed?pagetemplate=rss&category=356",
+      "notes": null
+    },
+    {
+      "company": "NV Energy",
+      "has_rss": true,
+      "url": "https://www.nvenergy.com/about-nvenergy/news/news-releases.feed",
+      "notes": "FLAGGED: The .feed extension on this RSS URL could not be independently verified. Needs live testing \u2014 may need to fall back to https://www.nvenergy.com/about-nvenergy/news/news-releases"
+    },
+    {
+      "company": "Ameren Illinois",
+      "has_rss": true,
+      "url": "https://ameren.mediaroom.com/news-releases?pagetemplate=rss&category=482",
+      "notes": null
+    },
+    {
+      "company": "Ameren Missouri",
+      "has_rss": true,
+      "url": "https://ameren.mediaroom.com/news-releases?pagetemplate=rss&category=480",
+      "notes": null
+    },
+    {
+      "company": "Avista",
+      "has_rss": true,
+      "url": "https://investor.avistacorp.com/rss/news-releases.xml",
+      "notes": null
+    },
+    {
+      "company": "Portland General Electric",
+      "has_rss": true,
+      "url": "https://investors.portlandgeneral.com/rss/news-releases.xml",
+      "notes": null
+    },
+    {
+      "company": "Black Hills Corporation",
+      "has_rss": true,
+      "url": "https://ir.blackhillscorp.com/rss/news-releases.xml",
+      "notes": "UPDATED: Fixed typo \"HIlls\" \u2192 \"Hills\""
+    },
+    {
+      "company": "FirstEnergy",
+      "has_rss": true,
+      "url": "https://investors.firstenergycorp.com/rss/pressrelease.aspx",
+      "notes": null
+    },
+    {
+      "company": "Evergy",
+      "has_rss": true,
+      "url": "https://investors.evergy.com/rss/news-releases.xml",
+      "notes": null
+    },
+    {
+      "company": "Alliant Energy",
+      "has_rss": true,
+      "url": "https://www.alliantenergy.com/news/news-center/feed",
+      "notes": "UPDATED: Old URL structure changed. New RSS feed at /news/news-center/feed."
+    },
+    {
+      "company": "CMS Energy",
+      "has_rss": true,
+      "url": "https://www.cmsenergy.com/rss/pressrelease.aspx",
+      "notes": null
+    },
+    {
+      "company": "American Electric Power",
+      "has_rss": true,
+      "url": "https://www.aep.com/news/rss",
+      "notes": null
+    },
+    {
+      "company": "CenterPoint Energy",
+      "has_rss": true,
+      "url": "https://investors.centerpointenergy.com/rss/news-releases.xml?items=15",
+      "notes": null
+    },
+    {
+      "company": "LADWP",
+      "has_rss": true,
+      "url": "https://www.ladwpnews.com/category/news/feed/",
+      "notes": null
+    },
+    {
+      "company": "One Gas",
+      "has_rss": true,
+      "url": "https://www.onegas.com/rss/pressrelease.aspx",
+      "notes": null
+    },
+    {
+      "company": "TXNM",
+      "has_rss": true,
+      "url": "https://otp.investis.com/clients/us/pnm_resources/usn/us-rss-feed.aspx",
+      "notes": null
+    },
+    {
+      "company": "Salt River Project (SRP)",
+      "has_rss": true,
+      "url": "https://media.srpnet.com/feed/en-us",
+      "notes": null
+    },
+    {
+      "company": "Duquesne Light",
+      "has_rss": false,
+      "url": "https://newsroom.duquesnelight.com/",
+      "notes": null
+    },
+    {
+      "company": "El Paso Electric",
+      "has_rss": false,
+      "url": "https://www.epelectric.com/company/news",
+      "notes": "UPDATED: Changed from /news to /company/news \u2014 the latter is the full press release listing page."
+    },
+    {
+      "company": "Northwestern Energy",
+      "has_rss": false,
+      "url": "https://northwesternenergy.com/about-us/news-articles-events",
+      "notes": null
+    },
+    {
+      "company": "Puget Sound Energy",
+      "has_rss": false,
+      "url": "https://www.pse.com/en/press-release",
+      "notes": "UPDATED: Removed Coveo sort fragment. Note: this page is JS-heavy and will need browser-based scraping (not simple HTTP fetch)."
+    },
+    {
+      "company": "OtterTail Power Company",
+      "has_rss": false,
+      "url": "https://www.otpco.com/newsroom/",
+      "notes": null
+    },
+    {
+      "company": "Minnesota Power",
+      "has_rss": false,
+      "url": "https://www.mnpower.com/Company/PressReleases",
+      "notes": null
+    },
+    {
+      "company": "Madison Gas & Electric",
+      "has_rss": false,
+      "url": "https://www.mge.com/about-mge/media-newsroom",
+      "notes": "UPDATED: Removed #releases URL fragment \u2014 fragile for scraping."
+    },
+    {
+      "company": "Montana Dakota Utilities",
+      "has_rss": false,
+      "url": "https://www.montana-dakota.com/in-the-community/news/",
+      "notes": null
+    },
+    {
+      "company": "Unitil",
+      "has_rss": false,
+      "url": "https://unitil.com/our-company/news-media",
+      "notes": null
+    },
+    {
+      "company": "UGI Utilities",
+      "has_rss": false,
+      "url": "https://www.ugi.com/category/in-the-news/",
+      "notes": null
+    },
+    {
+      "company": "Allete",
+      "has_rss": false,
+      "url": "https://www.allete.com/newsroom",
+      "notes": "UPDATED: investor.allete.com times out. Switched to corporate newsroom at allete.com/newsroom."
+    },
+    {
+      "company": "MDU Resources Group",
+      "has_rss": false,
+      "url": "https://investor.mdu.com/news/default.aspx",
+      "notes": null
+    }
+  ],
+  "recipients": [
+    {
+      "name": "Reece",
+      "email": "reece@haystackinsights.co"
+    }
+  ]
+}
