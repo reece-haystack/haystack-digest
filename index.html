@@ -148,7 +148,7 @@
         .stat-number { font-size: 28px; font-weight: 800; color: var(--navy); }
         .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
 
-        /* Utilities section */
+        /* Tracked Utilities */
         .utilities-section {
             max-width: 900px;
             margin: 0 auto;
@@ -201,28 +201,6 @@
 
         .search-bar input::placeholder { color: #9ca3af; }
 
-        .filter-pills {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .filter-pill {
-            padding: 6px 14px;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            background: #fff;
-            font-family: inherit;
-            font-size: 13px;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.15s;
-        }
-
-        .filter-pill:hover { border-color: var(--navy); color: var(--navy); }
-        .filter-pill.active { background: var(--navy); color: #fff; border-color: var(--navy); }
-
         /* Utility grid */
         .utility-grid {
             display: grid;
@@ -267,19 +245,6 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
-        .utility-badge {
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            flex-shrink: 0;
-        }
-
-        .utility-badge.rss { background: #eff6ff; color: #3b82f6; }
-        .utility-badge.html { background: #fef3c7; color: #d97706; }
 
         .no-results {
             text-align: center;
@@ -368,7 +333,6 @@
         <input type="text" id="search-input" placeholder="Search utilities...">
     </div>
 
-
     <div class="utility-grid" id="utility-grid"></div>
     <div class="no-results" id="no-results">No utilities match your search.</div>
 </section>
@@ -378,87 +342,88 @@
 </footer>
 
 <script>
-    // Load utilities from JSON
-    const UTILITIES_URL = 'utilities.json';
+// =============================================
+// UTILITY GRID
+// =============================================
+const UTILITIES_URL = 'utilities.json';
+let allUtilities = [];
 
-    let allUtilities = [];
+async function loadUtilities() {
+    try {
+        const resp = await fetch(UTILITIES_URL);
+        const data = await resp.json();
+        allUtilities = data.utilities.map(u => ({
+            name: u.company,
+            status: !u.url ? 'disabled' : 'active',
+            url: u.url
+        }));
 
-    async function loadUtilities() {
-        try {
-            const resp = await fetch(UTILITIES_URL);
-            const data = await resp.json();
-            allUtilities = data.utilities.map(u => ({
-                name: u.company,
-                type: u.has_rss ? 'rss' : 'html',
-                status: !u.url ? 'disabled' : 'active',
-                url: u.url
-            }));
+        const active = allUtilities.filter(u => u.status === 'active');
+        document.getElementById('stat-total').textContent = active.length;
 
-            // Stats
-            const active = allUtilities.filter(u => u.status === 'active');
-            document.getElementById('stat-total').textContent = active.length;
+        renderGrid(allUtilities);
+    } catch (e) {
+        console.error('Failed to load utilities:', e);
+    }
+}
 
-            renderGrid(allUtilities);
-        } catch (e) {
-            console.error('Failed to load utilities:', e);
-        }
+function renderGrid(utilities) {
+    const grid = document.getElementById('utility-grid');
+    const noResults = document.getElementById('no-results');
+
+    if (utilities.length === 0) {
+        grid.innerHTML = '';
+        noResults.style.display = 'block';
+        return;
     }
 
-    function renderGrid(utilities) {
-        const grid = document.getElementById('utility-grid');
-        const noResults = document.getElementById('no-results');
+    noResults.style.display = 'none';
+    grid.innerHTML = utilities.map(u => `
+        <div class="utility-card">
+            <span class="utility-dot ${u.status}"></span>
+            <span class="utility-name" title="${u.name}">${u.name}</span>
+        </div>
+    `).join('');
+}
 
-        if (utilities.length === 0) {
-            grid.innerHTML = '';
-            noResults.style.display = 'block';
-            return;
-        }
+document.getElementById('search-input').addEventListener('input', function() {
+    const query = this.value.toLowerCase();
+    const filtered = allUtilities.filter(u => u.name.toLowerCase().includes(query));
+    renderGrid(filtered);
+});
 
-        noResults.style.display = 'none';
-        grid.innerHTML = utilities.map(u => `
-            <div class="utility-card">
-                <span class="utility-dot ${u.status}"></span>
-                <span class="utility-name" title="${u.name}">${u.name}</span>
-            </div>
-        `).join('');
+// =============================================
+// SUBSCRIBE FORM
+// =============================================
+document.getElementById('subscribe-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email-input').value;
+    const btn = e.target.querySelector('button');
+    btn.textContent = 'Subscribing...';
+    btn.disabled = true;
+
+    try {
+        const issueTitle = encodeURIComponent(`Subscribe: ${email}`);
+        const issueBody = encodeURIComponent(`New subscription request:\n\nEmail: ${email}\nDate: ${new Date().toISOString()}`);
+        window.open(
+            `https://github.com/reece-haystack/haystack-pr-agent/issues/new?title=${issueTitle}&body=${issueBody}&labels=subscription`,
+            '_blank'
+        );
+
+        document.getElementById('subscribe-form').style.display = 'none';
+        document.querySelector('.form-note').style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+    } catch (err) {
+        btn.textContent = 'Subscribe';
+        btn.disabled = false;
+        alert('Something went wrong. Please try again.');
     }
+});
 
-    // Search
-    document.getElementById('search-input').addEventListener('input', function() {
-        const query = this.value.toLowerCase();
-        const filtered = allUtilities.filter(u => u.name.toLowerCase().includes(query));
-        renderGrid(filtered);
-    });
-
-    // Subscribe form
-    document.getElementById('subscribe-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = document.getElementById('email-input').value;
-        const btn = e.target.querySelector('button');
-        btn.textContent = 'Subscribing...';
-        btn.disabled = true;
-
-        try {
-            // POST to the GitHub Actions subscribe workflow via repository dispatch
-            // For now, open a pre-filled GitHub issue as the subscription mechanism
-            const issueTitle = encodeURIComponent(`Subscribe: ${email}`);
-            const issueBody = encodeURIComponent(`New subscription request:\n\nEmail: ${email}\nDate: ${new Date().toISOString()}`);
-            window.open(
-                `https://github.com/reece-haystack/haystack-pr-agent/issues/new?title=${issueTitle}&body=${issueBody}&labels=subscription`,
-                '_blank'
-            );
-
-            document.getElementById('subscribe-form').style.display = 'none';
-            document.querySelector('.form-note').style.display = 'none';
-            document.getElementById('form-success').style.display = 'block';
-        } catch (err) {
-            btn.textContent = 'Subscribe';
-            btn.disabled = false;
-            alert('Something went wrong. Please try again.');
-        }
-    });
-
-    loadUtilities();
+// =============================================
+// INIT
+// =============================================
+loadUtilities();
 </script>
 
 </body>
