@@ -266,6 +266,73 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Already-subscribed state */
+        .subscribe-already {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            pointer-events: none;
+            position: absolute;
+            width: 100%;
+            top: 0;
+        }
+
+        .subscribe-already.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            position: relative;
+        }
+
+        .already-icon {
+            width: 56px;
+            height: 56px;
+        }
+
+        .already-icon .circle {
+            fill: none;
+            stroke: var(--blue);
+            stroke-width: 2.5;
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            animation: drawCircle 0.6s ease forwards;
+        }
+
+        .already-icon .info-dot {
+            fill: var(--blue);
+            opacity: 0;
+            animation: fadeUp 0.3s 0.3s ease forwards;
+        }
+
+        .already-icon .info-line {
+            fill: none;
+            stroke: var(--blue);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-dasharray: 12;
+            stroke-dashoffset: 12;
+            animation: drawCheck 0.3s 0.35s ease forwards;
+        }
+
+        .already-title {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 700;
+            opacity: 0;
+            animation: fadeUp 0.4s 0.5s ease forwards;
+        }
+
+        .already-subtitle {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            opacity: 0;
+            animation: fadeUp 0.4s 0.65s ease forwards;
+        }
+
         /* Stats bar */
         .stats-bar {
             display: flex;
@@ -407,6 +474,9 @@
             .checkmark-circle { width: 48px; height: 48px; }
             .success-title { font-size: 18px; }
             .success-subtitle { font-size: 13px; }
+            .already-icon { width: 48px; height: 48px; }
+            .already-title { font-size: 18px; }
+            .already-subtitle { font-size: 13px; }
             .stats-bar { gap: 24px; padding: 20px 16px; }
             .stat-number { font-size: 22px; }
             .utilities-section { padding: 40px 16px 60px; }
@@ -453,6 +523,16 @@
                 </svg>
                 <div class="success-title">You're subscribed!</div>
                 <div class="success-subtitle">Check your inbox for a confirmation email.</div>
+            </div>
+
+            <div class="subscribe-already" id="subscribe-already">
+                <svg class="already-icon" viewBox="0 0 52 52">
+                    <circle class="circle" cx="26" cy="26" r="24"/>
+                    <circle class="info-dot" cx="26" cy="18" r="2.5"/>
+                    <line class="info-line" x1="26" y1="24" x2="26" y2="36"/>
+                </svg>
+                <div class="already-title">Already subscribed!</div>
+                <div class="already-subtitle">This email is already on our list. You're all set.</div>
             </div>
         </div>
         <p class="form-note" id="form-note">Free. Unsubscribe anytime.</p>
@@ -541,12 +621,15 @@ document.getElementById('search-input').addEventListener('input', function() {
 // =============================================
 // SUBSCRIBE FORM
 // =============================================
+const SUBSCRIBE_API = 'https://haystack-digest-api.reece-6a9.workers.dev/subscribe';
+
 const subscribeForm = document.getElementById('subscribe-form');
 const emailInput = document.getElementById('email-input');
 const subscribeBtn = document.getElementById('subscribe-btn');
 const formError = document.getElementById('form-error');
 const formNote = document.getElementById('form-note');
 const subscribeSuccess = document.getElementById('subscribe-success');
+const subscribeAlready = document.getElementById('subscribe-already');
 
 function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -563,9 +646,15 @@ function clearError() {
     emailInput.classList.remove('has-error');
 }
 
+function resetForm() {
+    subscribeBtn.disabled = false;
+    emailInput.disabled = false;
+    subscribeBtn.innerHTML = '<span>Subscribe</span>';
+}
+
 emailInput.addEventListener('input', clearError);
 
-subscribeForm.addEventListener('submit', (e) => {
+subscribeForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     clearError();
 
@@ -580,18 +669,35 @@ subscribeForm.addEventListener('submit', (e) => {
     emailInput.disabled = true;
     subscribeBtn.innerHTML = '<span class="btn-spinner"></span><span>Subscribing...</span>';
 
-    // Simulate brief network call, then show success
-    setTimeout(() => {
+    try {
+        const resp = await fetch(SUBSCRIBE_API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email }),
+        });
+
+        const data = await resp.json();
+
         // Hide form + note
         subscribeForm.classList.add('is-hidden');
         formNote.classList.add('is-hidden');
         formError.classList.remove('is-visible');
 
-        // Show success after form fades out
-        setTimeout(() => {
-            subscribeSuccess.classList.add('is-visible');
-        }, 150);
-    }, 1200);
+        if (data.status === 'already_subscribed') {
+            setTimeout(() => {
+                subscribeAlready.classList.add('is-visible');
+            }, 150);
+        } else if (data.status === 'subscribed') {
+            setTimeout(() => {
+                subscribeSuccess.classList.add('is-visible');
+            }, 150);
+        } else {
+            throw new Error(data.message || 'Something went wrong.');
+        }
+    } catch (err) {
+        resetForm();
+        showError(err.message || 'Something went wrong. Please try again.');
+    }
 });
 
 // =============================================
